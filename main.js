@@ -6,6 +6,7 @@ const tempy = require('tempy')
 let win
 
 function preparePug (filepath, vars={}) {
+  vars.rootdir = __dirname
   const newFilepath = tempy.file({ extension: 'html' })
   fs.writeFileSync(newFilepath, pug.compileFile(filepath)(vars))
   return newFilepath
@@ -13,7 +14,7 @@ function preparePug (filepath, vars={}) {
 
 function createWindow () {
   win = new BrowserWindow({ width: 1600, height: 800 })
-  win.loadFile(preparePug(`${__dirname}/pug/index.pug`))
+  win.loadFile(preparePug(`${__dirname}/views/index.pug`))
   win.webContents.openDevTools()
   win.on('closed', () => {
     win = null
